@@ -1,0 +1,23 @@
+ Install
+
+
+ pacman: sof-firmware (sound) (razer) compat
+ pacman: man-db
+ pacman: signal-desktop
+ pacman: nvidia driver (not sure what package is called)
+ 
+ coding playbook:
+ pacman: python
+16
+
+ set up .Xresources with following line:
+ Xft.dpi: 192
+
+ set up .xinitrc with following line
+ xrdb -merge ~/.Xresources
+
+ set up file operations to be run as user not root
+ set up git usr/pass for ansible and git
+ set up user pass for ansible operations (become true)
+gpasswd -a pablo plugdev (razer drivers user
+install openrazer

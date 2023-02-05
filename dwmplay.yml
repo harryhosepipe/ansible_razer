@@ -1,0 +1,64 @@
+---
+
+- name: Set up DWM base
+  hosts: localhost
+  tasks:
+
+    - name: Install Base apps and libraries necessary for pabs custom DWM
+      pacman:
+        name: 
+          - base-devel
+          - xorg-server
+          - xorg-xinit
+          - libx11
+          - libxinerama
+          - libxft
+          - webkit2gtk
+          - git
+          - alacritty
+          - firefox
+          - signal-desktop
+        state: present
+      become: true
+
+
+    - name: Download and extract Dropbox on Arch Linux
+      shell: cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+      when: not folder_exists
+      vars:
+        folder_exists: "'~/.dropbox-dist' in lookup('fileglob', '~/.dropbox-dist')"
+
+
+    - name: Clone the dwm repository
+      shell: "cd ~/bin && git clone https://git.suckless.org/dwm"
+      when: not folder_exists
+      vars:
+        folder_exists: "'~/bin/dwm' in lookup('fileglob', '~/bin/dwm')"
+
+    - name: Clone the st repository
+      shell: "cd ~/bin && git clone https://git.suckless.org/st"
+      when: not folder_exists
+      vars:
+        folder_exists: "'~/bin/st' in lookup('fileglob', '~/bin/st')"
+              
+    - name: Clone the Dmenu repository
+      shell: "cd ~/bin && git clone https://git.suckless.org/dmenu"
+      when: not folder_exists
+      vars:
+        folder_exists: "'~/bin/dmenu' in lookup('fileglob', '~/bin/dmenu')"
+
+          #    - name: Create .xinitrc
+          #      file:
+          #        path: /home/pablo/.xinitrc
+          #        state: touch
+          #
+          #    - name: Add line of text exec dwm to .xinitrc
+          #      lineinfile:
+          #        path: /home/pablo/.xinitrc
+          #        line: "exec dwm"
+
+# play to compile code in future. must first make my own branch of suckless
+#  - name: Compile code
+#    shell: |
+#      cd /path/to/code
+#      make clean install

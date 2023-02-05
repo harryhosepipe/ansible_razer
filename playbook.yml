@@ -1,0 +1,59 @@
+---
+
+- name: Sling Pablo into happiness
+  hosts: localhost
+  become: yes
+  tasks:
+    
+  - name: Install wget
+    pacman:
+      name: wget
+      state: present
+
+  - name: Install Git
+    pacman:
+      name: git
+      state: present
+
+  - name: Install Stow
+    pacman:
+      name: stow
+      state: present
+  
+  - name: Install openssh
+    pacman:
+      name: openssh
+      state: present
+  
+  - name: Backup bashrc
+    stat:
+      path: /home/pablo/.bashrc
+    register: bashrc_stat
+
+  - name: coppy bashrc
+    copy:
+      src: /home/pablo/.bashrc
+      dest: /home/pablo/.bashrc_bak
+    when: bashrc_stat.stat.exists
+
+  - name: Delete .bashrc
+    file:
+      path: /home/pablo/.bashrc
+      state: absent
+    when: bashrc_stat.stat.exists
+
+  - name: Sync Harry Git Slingshot
+    git:
+      repo: https://github.com/harryhosepipe/slingshot.git
+      dest: /home/pablo/slingshot
+      clone: yes
+
+  - name: Wget stow module for ansible
+    shell:
+      "wget https://raw.githubusercontent.com/caian-org/ansible-stow/v0.1.4/stow"
+ 
+  - name: Start OpenSSH
+    service:
+      name: sshd
+      state: started
+      enabled: yes
