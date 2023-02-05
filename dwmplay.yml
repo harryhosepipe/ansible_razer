@@ -18,6 +18,8 @@
           - alacritty
           - firefox
           - signal-desktop
+          - keepassxc
+          - nvidia
         state: present
       become: true
 
@@ -27,7 +29,6 @@
       when: not folder_exists
       vars:
         folder_exists: "'~/.dropbox-dist' in lookup('fileglob', '~/.dropbox-dist')"
-
 
     - name: Clone the dwm repository
       shell: "cd ~/bin && git clone https://git.suckless.org/dwm"
@@ -47,15 +48,21 @@
       vars:
         folder_exists: "'~/bin/dmenu' in lookup('fileglob', '~/bin/dmenu')"
 
-          #    - name: Create .xinitrc
-          #      file:
-          #        path: /home/pablo/.xinitrc
-          #        state: touch
+
+          # CREATE NECCESARY INIT FILES TO RUN DWM
           #
-          #    - name: Add line of text exec dwm to .xinitrc
-          #      lineinfile:
-          #        path: /home/pablo/.xinitrc
-          #        line: "exec dwm"
+          #
+
+
+    - name: Create .xinitrc
+      file:
+        path: /home/pablo/.xinitrc
+        state: touch
+
+    - name: Add line of text exec dwm to .xinitrc
+      lineinfile:
+        path: /home/pablo/.xinitrc
+        line: "exec dwm"
 
 # play to compile code in future. must first make my own branch of suckless
 #  - name: Compile code
