@@ -7,8 +7,9 @@ MAIN CORE PACKAGES TO install
 
 
 DROPBOX SETUP
-    - git clone .dropbox folder
-    - copy .dropbox folder to ~/$USER
+    - git clone dropbox tar encrypted file
+    - decrypt dropbox_backup.tar.gz.gpg ~/$USER
+    - extract dropbox_backup.tar.gz ~/$USER
     - copy dropybox.py to ~/$USER/BIN
     - chmod +x dropbox.py
     - start dropbox.py to get dropbox syncing
