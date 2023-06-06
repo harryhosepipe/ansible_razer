@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Download and extract Dropbox
+      become: yes
+      become_user: pablo
+      shell:
+        cmd: cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+    
+    - name: COPY .dropbox folder from repo

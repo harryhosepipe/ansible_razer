@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+
+    - name: Install Base
+      pacman:
+        name:
+          - wget
+          - git
+          - curl
+    # Your tasks here
+
+            #- import_tasks: gitsetup.yml
+
