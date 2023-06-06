@@ -10,6 +10,7 @@
           - git
           - curl
           - gnupg
+        state: present
 
     # Your tasks here
 
