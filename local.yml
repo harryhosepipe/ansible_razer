@@ -1,9 +1,9 @@
 ---
-- hosts: all
-  tags: always
+- hosts: localhost
+  connection: local
   become: true
+    
   tasks:
-
     - name: Install Base
       pacman:
         name:
