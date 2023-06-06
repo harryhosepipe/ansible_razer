@@ -1,14 +1,18 @@
- Install
+MAIN CORE PACKAGES TO install
+
+    - GnuPg
+    - github
+    - wget
+    - curl
 
 
 DROPBOX SETUP
-    - git clone ansible repo
+    - git clone .dropbox folder
     - copy .dropbox folder to ~/$USER
     - copy dropybox.py to ~/$USER/BIN
     - chmod +x dropbox.py
     - start dropbox.py to get dropbox syncing
     - run ./dropbox.py commands see below. 
-        - ./dropbox.py autostart
         - ./dropbox.py exclude add ~/Dropbox/MEDIA/
         - ./dropbox.py exclude add ~/Dropbox/PROJECTS/
 
