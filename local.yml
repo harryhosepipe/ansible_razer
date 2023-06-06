@@ -1,6 +1,7 @@
 ---
-- hosts: localhost
-  gather_facts: no
+- hosts: all
+  tags: always
+  become: true
   tasks:
 
     - name: Install Base
