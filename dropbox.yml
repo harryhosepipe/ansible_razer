@@ -1,10 +1,38 @@
 ---
 - hosts: localhost
+  vars_prompt:
+    - name: "gpg_passphrase"
+      prompt: "Enter your encrypted passphrase for dropbox.gpg"
+      private: yes
+
   tasks:
-    - name: Download and extract Dropbox
+    - name: Ensure tmp directory exists
+      file:
+        path: "/home/pablo/tmp"
+        state: directory
       become: yes
       become_user: pablo
-      shell:
-        cmd: cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
     
-    - name: COPY .dropbox folder from repo
+    - name: Clone the repository
+      git:
+        repo: "https://github.com/harryhosepipe/ansible_razer.git"
+        dest: "~/tmp/ansible_razer"
+        clone: yes
+        update: no
+      become: yes
+      become_user: pablo
+
+    - name: Copy contents of dropbox folder to user's home directory
+      command: cp /home/pablo/tmp/ansible_razer/dropbox/dropbox_backup.tar.gz.gpg /home/pablo/ 
+      become: yes
+      become_user: pablo
+
+        #    - name: Download and install dropbox daemon
+        #      become: yes
+        #      become_user: pablo
+        #      shell:
+        #        cmd: cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+    
+
+
+...
