@@ -10,9 +10,30 @@
           - git
           - curl
           - gnupg
+          - fontconfig
+          - unzip
+          - xorg-xbacklight
+          - tmux
+          - nodejs
+          - xwallpaper
         state: present
 
+    - name: Check if live-server is installed
+      shell: npm list -g --depth=0 | grep live-server
+      register: live_server_installed
+      failed_when: false
+      changed_when: false
+
+    - name: Install Live-Server (Node-js)
+      command: npm install -g live-server
+      when: live_server_installed.rc != 0
+
+
+
+          #    - name: Install Live-Server (Node-js)
+          #      command: npm install -g live-server
     # Your tasks here
 
             #- import_tasks: gitsetup.yml
+
 

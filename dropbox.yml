@@ -27,11 +27,14 @@
       become: yes
       become_user: pablo
 
-        #    - name: Download and install dropbox daemon
-        #      become: yes
-        #      become_user: pablo
-        #      shell:
-        #        cmd: cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+    - name: Decrypt .dropbox
+      shell: echo "{{ gpg_passphrase }}" | gpg --batch --passphrase-fd 0 dropbox_backup.tar.gz.gpg
+
+       #    - name: Download and install dropbox daemon
+       #      become: yes
+       #      become_user: pablo
+       #      shell:
+       #        cmd: cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
     
 
 
